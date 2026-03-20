@@ -1,0 +1,60 @@
+* {
+  font-family: "Hack", "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  border: none;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* Frosted containers */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 8px 12px;
+  color: #ffffff;
+}
+
+/* Workspace pills */
+#workspaces button {
+  padding: 2px 10px;
+  margin: 0 4px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+}
+
+#workspaces button.active {
+  background: rgba(137, 220, 235, 0.35); /* cyan tint */
+  color: #ffffff;
+}
+
+/* Focused window title */
+#window {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  padding: 0 10px;
+}
+
+/* Module spacing */
+#clock, #pulseaudio, #network, #cpu, #memory, #tray {
+  padding: 0 8px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* --- Fix focused window title contrast --- */
+#window {
+  color: #f5e0dc;               /* bright text */
+  font-weight: 600;
+  padding: 0 10px;
+}
+
+/* If you want it even more readable, give it a subtle pill background */
+#window {
+  background: rgba(17, 17, 27, 0.35);
+  border-radius: 10px;
+}

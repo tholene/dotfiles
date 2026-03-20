@@ -1,0 +1,31 @@
+[alias]
+	s = status
+    tweak = commit --amend --no-edit
+    pl = pull --rebase --autostash
+    rba = rebase --autostash
+    recommit = commit --amend --reset-author
+    unadd = reset HEAD
+    undolast = reset --mixed HEAD~
+    undolastk = reset --soft HEAD~
+    abort = reset --hard
+    co = checkout
+    cob = checkout -b
+    showstash = stash show -p
+    graph = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    graph2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    recentb = for-each-ref --count=5 --sort=-committerdate refs/heads --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
+	puss = push
+[user]
+	name = "Erik Tholén"
+	email = "ltd180@gmail.com"
+[pull]
+	rebase = true
+[core]
+	editor = nano
+[push]
+	autoSetupRemote = true
+[rebase]
+    autostash = true
+    autosquash = true
+[init]
+	defaultBranch = main
