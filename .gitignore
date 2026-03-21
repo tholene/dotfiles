@@ -1,0 +1,14 @@
+# Ignore everything
+/*
+
+# But allow tracked folders/files
+!hypr/
+!kitty/
+!swaync/
+!Thunar/
+!waybar/
+!wofi/
+!bashrc
+
+# Ignore files produced/tweaked by scripts
+!/hypr/conf.d/10-monitors-active.conf
