@@ -1,6 +1,8 @@
 @define-color primary #ffffff;
 @define-color pill-bg rgba(255, 255, 255, 0.11);
 @define-color pill-border rgba(255,255,255,0.22);
+@define-color workspace-active-bg rgba(137,220,235,0.5);
+@define-color workspace-inactive rgba(255,255,255,0.5);
 
 * {
   font-family: "Hack", serif;
@@ -21,7 +23,6 @@ window#waybar {
   border: 1px solid @pill-border;
   border-radius: 999px;
   color: @primary;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .modules-left box, .modules-left widget, .modules-left label,
@@ -39,7 +40,7 @@ window#waybar {
 
 button {
   border-radius: 999px;
-  margin: 0 2px;
+  /*margin: 0 2px;*/
 }
 
 button:first-child {
@@ -50,12 +51,24 @@ button:last-child {
   margin-right: 0;
 }
 
-button.active {
-  background: rgba(137,220,235,0.5);
-  color: #fff;
+button.active, button.visible {
+  background: @workspace-active-bg;
   padding: 0 24px;
 }
 
-/*button:not(.active) {*/
-/*    color: transparent;*/
-/*}*/
+button:not(.active) {
+  color: @workspace-inactive;
+}
+
+
+.modules-left > *:hover,
+.modules-center > *:hover,
+.modules-right > *:hover,
+button:hover {
+  background: rgba(255, 255, 255, 0.20);
+
+}
+
+button:not(.active):hover {
+  color: @primary;
+}
