@@ -11,7 +11,6 @@ notify_layout() {
   notify-send $NOTIFY_APP --app-icon="$NOTIFY_APP_ICON" --icon="$NOTIFY_ICON" "$NOTIFY_TITLE" "$1"
 }
 
-
 is_disabled="$(
   hyprctl monitors | awk -v mon="$MON" '
     $1=="Monitor" && $2==mon {inmon=1}

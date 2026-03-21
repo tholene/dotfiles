@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-HDR="$HOME/.config/hypr/conf.d/10-monitors-hdr.conf"
-SDR="$HOME/.config/hypr/conf.d/10-monitors-sdr.conf"
 ACTIVE="$HOME/.config/hypr/conf.d/10-monitors-active.conf"
 NOTIFY_APP="--app-name System"
 NOTIFY_ICON="$HOME/.local/share/icons/hicolor/96x96/arch.png"
@@ -13,6 +11,8 @@ notify_layout() {
   notify-send $NOTIFY_APP --app-icon="$NOTIFY_APP_ICON" --icon="$NOTIFY_ICON" "$NOTIFY_TITLE" "$1"
 }
 
+HDR="$HOME/.config/hypr/conf.d/10-monitors-hdr.conf"
+SDR="$HOME/.config/hypr/conf.d/10-monitors-sdr.conf"
 
 need() { [[ -f "$1" ]] || { echo "Missing file: $1" >&2; exit 1; }; }
 need "$HDR"

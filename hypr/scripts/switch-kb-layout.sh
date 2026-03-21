@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-current=$(hyprctl devices -j | jq -r '[.keyboards[] | select(.main==true) | .layout] | first')
-
 NOTIFY_APP="--app-name System"
 NOTIFY_ICON="$HOME/.local/share/icons/hicolor/96x96/arch.png"
 NOTIFY_TITLE="Keyboard Layout"
@@ -12,6 +10,8 @@ US_FLAG="$HOME/.local/share/icons/hicolor/512x512/flags/united-states.png"
 notify_layout() {
   notify-send $NOTIFY_APP --app-icon="$1" --icon="$NOTIFY_ICON" "$NOTIFY_TITLE" "$2"
 }
+
+current=$(hyprctl devices -j | jq -r '[.keyboards[] | select(.main==true) | .layout] | first')
 
 if [[ "$current" == "us" ]]; then
   hyprctl keyword input:kb_layout sv
