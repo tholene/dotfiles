@@ -13,4 +13,4 @@
 !bashrc
 
 # Ignore files produced/tweaked by scripts
-!/hypr/conf.d/10-monitors-active.conf
+/hypr/conf.d/10-monitors-active.conf
