@@ -1,80 +1,81 @@
 #!/usr/bin/env bash
 
+LOCKFILE="/tmp/media-watcher.lock"
+if [ -e "$LOCKFILE" ]; then
+  PID=$(cat "$LOCKFILE")
+  if kill -0 "$PID" 2>/dev/null; then
+    echo "Another instance is running (PID $PID). Exiting."
+    exit 1
+  fi
+fi
+echo $$ > "$LOCKFILE"
+
+trap 'rm -f "$LOCKFILE"' EXIT
+
 LOG=/tmp/media-watcher.log
-echo "Watcher started at $(date)" >> $LOG
+echo "Watcher started at $(date)" >> "$LOG"
 
-LAST_STATUS=""
+chrome_poll() {
+    while true; do
+        clients=$(hyprctl clients -j)
+        # Tag Chrome windows with inhibitingIdle true
+        mapfile -t chrome_active < <(echo "$clients" | jq -r \
+            '.[] | select(type=="object" and .class=="google-chrome" and .inhibitingIdle==true) | .address')
+        # Untag Chrome windows with inhibitingIdle false but currently tagged
+        mapfile -t chrome_inactive < <(echo "$clients" | jq -r \
+            '.[] | select(type=="object" and .class=="google-chrome" and .inhibitingIdle==false and (.tags|index("media"))) | .address')
 
-playerctl --follow status | while read status; do
-    echo "$status" >> $LOG
-
-    # Only act if status changes
-    if [[ "$status" != "$LAST_STATUS" ]]; then
-        LAST_STATUS="$status"
-
-        if [[ "$status" == "Playing" || "$status" == "Paused" || "$status" == "Stopped" ]]; then
-            player=$(playerctl -l | head -n1)
-            media_title=$(playerctl metadata --player="$player" --format '{{title}}')
-            media_artist=$(playerctl metadata --player="$player" --format '{{artist}}')
-            echo "[status=$status] [player=$player] [title=$media_title] [artist=$media_artist]" >> $LOG
-
-            clients=$(hyprctl clients -j)
-            matched_addresses=()
-            pid=""
-
-            if [[ "$player" == "spotify" ]]; then
-                pid=$(pgrep -x spotify | head -n1)
-                if [ -n "$pid" ]; then
-                    matched_addresses=($(echo "$clients" | jq -r --arg pid "$pid" \
-                        '.[] | select(.pid == ($pid | tonumber) and .class=="spotify") | .address'))
-                fi
-            elif [[ "$player" == "chromium" || "$player" == "chrome" || "$player" == "google-chrome" ]]; then
-                # Try matching Chrome windows by title substring first
-                matched_addresses=($(echo "$clients" | jq -r --arg title "$media_title" \
-                    '.[] | select(.class=="google-chrome" and (.title | contains($title))) | .address'))
-                # If no match by title, fall back to PID
-                pid=$(playerctl metadata --player="$player" --format '{{pid}}')
-                if [ "${#matched_addresses[@]}" -eq 0 ] && [ -n "$pid" ]; then
-                    matched_addresses=($(echo "$clients" | jq -r --arg pid "$pid" \
-                        '.[] | select(.pid | tostring == $pid and .class=="google-chrome") | .address'))
-                fi
-            else
-                # Generic fallback: try to match any by title or by pid
-                matched_addresses=($(echo "$clients" | jq -r --arg title "$media_title" \
-                    '.[] | select(.title | contains($title)) | .address'))
-                pid=$(playerctl metadata --player="$player" --format '{{pid}}')
-                if [ "${#matched_addresses[@]}" -eq 0 ] && [ -n "$pid" ]; then
-                    matched_addresses=($(echo "$clients" | jq -r --arg pid "$pid" \
-                        '.[] | select(.pid | tostring == $pid) | .address'))
-                fi
+        for address in "${chrome_active[@]}"; do
+            curr_tag=$(echo "$clients" | jq -r \
+                '.[] | select(type=="object" and .address=="'"$address"'") | .tags')
+            if [[ "$curr_tag" != *"media"* ]]; then
+                hyprctl dispatch tagwindow media address:"$address"
+                echo "Chrome: tagged address $address at $(date)" >> "$LOG"
             fi
+        done
 
-            for address in "${matched_addresses[@]}"; do
-                curr_tag=$(echo "$clients" | jq -r ".[] | select(.address==\"$address\") | .tags")
-                if [[ "$status" == "Playing" ]]; then
-                    if [[ "$curr_tag" != *"media"* ]]; then
-                        hyprctl dispatch tagwindow media address:"$address"
-                        echo "Playing: tagged address $address" >> $LOG
-                    else
-                        echo "Playing: address $address already tagged" >> $LOG
-                    fi
-                else
-                    if [[ "$curr_tag" == *"media"* ]]; then
-                        hyprctl dispatch tagwindow media address:"$address"
-                        echo "Stopped: removed tag from address $address" >> $LOG
-                    else
-                        echo "Stopped: address $address not tagged" >> $LOG
-                    fi
-                fi
-            done
+        for address in "${chrome_inactive[@]}"; do
+            hyprctl dispatch tagwindow -- media address:"$address"
+            echo "Chrome: untagged address $address at $(date)" >> "$LOG"
+        done
 
-            if [ "${#matched_addresses[@]}" -eq 0 ]; then
-                if [[ "$player" == "spotify" ]]; then
-                    echo "No matching window for status=$status, player=spotify, pid=${pid}" >> $LOG
-                else
-                    echo "No matching window for status=$status, player=$player, title=$media_title, pid=$pid" >> $LOG
-                fi
+        sleep 5
+    done
+}
+
+spotify_handler() {
+    LAST_STATUS=""
+    playerctl --follow status | while read -r status; do
+        echo "$status" >> "$LOG"
+        if [[ "$status" != "$LAST_STATUS" ]]; then
+            LAST_STATUS="$status"
+            clients=$(hyprctl clients -j)
+            player=$(playerctl -l | grep -Fx spotify)
+            if [[ -n "$player" ]]; then
+                spotify_pid=$(pgrep -x spotify | head -n1)
+                mapfile -t spotify_addresses < <(echo "$clients" | jq -r --arg pid "$spotify_pid" \
+                    '.[] | select(type=="object" and .pid == ($pid | tonumber) and .class == "spotify") | .address')
+                for address in "${spotify_addresses[@]}"; do
+                    curr_tag=$(echo "$clients" | jq -r \
+                        '.[] | select(type=="object" and .address=="'"$address"'") | .tags')
+                    if [[ "$status" == "Playing" ]]; then
+                        if [[ "$curr_tag" != *"media"* ]]; then
+                            hyprctl dispatch tagwindow media address:"$address"
+                            echo "Spotify: tagged address $address at $(date)" >> "$LOG"
+                        fi
+                    else
+                        if [[ "$curr_tag" == *"media"* ]]; then
+                            hyprctl dispatch tagwindow media address:"$address"
+                            echo "Spotify: untagged address $address at $(date)" >> "$LOG"
+                        fi
+                    fi
+                done
             fi
         fi
-    fi
-done
+    done
+}
+
+chrome_poll &
+spotify_handler &
+
+wait
