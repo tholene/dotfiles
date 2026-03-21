@@ -1,6 +1,8 @@
 # Ignore everything
 /*
 
+!.gitignore
+
 # But allow tracked folders/files
 !hypr/
 !kitty/

@@ -7,9 +7,9 @@
   "margin-right": 12,
   "spacing": 12,
 
-  "modules-left": [ "cpu", "memory","hyprland/window"],
+  "modules-left": [ "cpu", "memory", "network#speed"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["custom/media","tray","custom/keyboard","pulseaudio", "network", "clock", "custom/notifications"],
+  "modules-right": ["custom/media", "pulseaudio", "tray","custom/keyboard", "clock", "custom/notifications"],
 
   "hyprland/workspaces": {
     "format": "{name}",
@@ -27,11 +27,17 @@
     "on-click": "pavucontrol"
   },
 
-  "network": {
-    "format-wifi": "  {signalStrength}%",
-    "format-ethernet": "󰈀  wired",
-    "format-disconnected": "󰖪  offline",
-    "tooltip-format": "{ifname}\n{ipaddr}"
+  "network#speed": {
+    "interval": 1,
+    "format": "{ifname}",
+    "format-wifi": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "format-ethernet": " {bandwidthDownBytes}  {bandwidthUpBytes} ",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-ethernet": "󰈀 {ifname}\n{ipaddr}",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "max-length": 30
   },
 
   "cpu": { "format": "  {usage}%" },
@@ -39,10 +45,7 @@
 
   "tray": {
     "spacing": 10,
-    "icon-size": 20,
-    "icons": {
-       "vesktop": ".local/share/icons/hicolor/64x64/apps/discord.svg",
-     }
+    "icon-size": 20
   },
 
   "custom/media": {
@@ -59,8 +62,9 @@
   },
 
   "custom/notifications": {
-    "exec": "swaync-client -c",
+    "exec": "echo '🔔 '$(swaync-client -c)",
     "on-click": "swaync-client -t",
-    "interval": 5
+    "interval": 5,
+    "return-type": "text"
   }
 }
