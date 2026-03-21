@@ -1,0 +1,5 @@
+@define-color primary #ffffff;
+
+@define-color pill-bg rgba(255, 255, 255, 0.10);
+@define-color pill-bg-hover rgba(255, 255, 255, 0.15);
+@define-color pill-border rgba(255,255,255,0.20);

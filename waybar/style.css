@@ -1,8 +1,5 @@
-@define-color primary #ffffff;
-@define-color pill-bg rgba(255, 255, 255, 0.11);
-@define-color pill-border rgba(255,255,255,0.22);
-@define-color workspace-active-bg rgba(137,220,235,0.5);
-@define-color workspace-inactive rgba(255,255,255,0.5);
+@import 'modules/colors.css';
+@import 'modules/workspaces.css';
 
 * {
   font-family: "Hack", serif;
@@ -15,60 +12,18 @@ window#waybar {
   background: transparent;
 }
 
-/* Pills for all modules in all sections */
-.modules-left > *,
-.modules-center > *,
-.modules-right > * {
+.module {
+  color: @primary;
   background: @pill-bg;
   border: 1px solid @pill-border;
   border-radius: 999px;
-  color: @primary;
-}
-
-.modules-left box, .modules-left widget, .modules-left label,
-.modules-right box, .modules-right widget, .modules-right label {
   padding-left: 12px;
   padding-right: 12px;
+  transition: all 0.15s cubic-bezier(.4,2.3,.3,1);
 }
 
-/* Remove right margin from last pill in each section */
-.modules-left > *:last-child,
-.modules-center > *:last-child,
-.modules-right > *:last-child {
-  margin-right: 0;
-}
-
-button {
-  border-radius: 999px;
-  /*margin: 0 2px;*/
-}
-
-button:first-child {
-  margin-left: 0;
-}
-
-button:last-child {
-  margin-right: 0;
-}
-
-button.active, button.visible {
-  background: @workspace-active-bg;
-  padding: 0 24px;
-}
-
-button:not(.active) {
-  color: @workspace-inactive;
-}
-
-
-.modules-left > *:hover,
-.modules-center > *:hover,
-.modules-right > *:hover,
-button:hover {
-  background: rgba(255, 255, 255, 0.20);
-
-}
-
-button:not(.active):hover {
-  color: @primary;
+#pulseaudio.module:hover,
+#mpris.module:hover
+{
+  background: @pill-bg-hover;
 }
