@@ -1,11 +1,10 @@
 #!/bin/bash
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
-
 LAST_INDEX_FILE="$HOME/.last_wallpaper_index"
+SYMLINK_PATH="$WALLPAPER_DIR/ACTIVE_WALLPAPER.jpg"
 
 mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" \) | sort)
-
 NUM_WALLPAPERS=${#WALLPAPERS[@]}
 
 if [[ -f "$LAST_INDEX_FILE" ]]; then
@@ -15,7 +14,10 @@ else
 fi
 
 INDEX=$(( (INDEX + 1) % NUM_WALLPAPERS ))
+NEW_WALLPAPER="${WALLPAPERS[$INDEX]}"
 
-swww img "${WALLPAPERS[$INDEX]}" -t grow --transition-duration 0.4 --transition-fps 240 --transition-step 255 --transition-pos center
+ln -sf "${NEW_WALLPAPER}" "$SYMLINK_PATH"
+
+swww img "${SYMLINK_PATH}" -t grow --transition-duration 0.4 --transition-fps 240 --transition-step 255 --transition-pos center
 
 echo "$INDEX" > "$LAST_INDEX_FILE"
