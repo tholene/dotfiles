@@ -22,8 +22,8 @@ window#waybar {
   transition: all 0.15s cubic-bezier(.4,2.3,.3,1);
 }
 
-#pulseaudio.module:hover,
-#mpris.module:hover
+#mpris.module:hover,
+#custom-notifications.module:hover
 {
   background: @pill-bg-hover;
 }
