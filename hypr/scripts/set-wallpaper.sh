@@ -18,6 +18,6 @@ NEW_WALLPAPER="${WALLPAPERS[$INDEX]}"
 
 ln -sf "${NEW_WALLPAPER}" "$SYMLINK_PATH"
 
-swww img "${SYMLINK_PATH}" -t grow --transition-duration 0.4 --transition-fps 240 --transition-step 255 --transition-pos center
+awww img "${SYMLINK_PATH}" -t grow --transition-duration 0.4 --transition-fps 240 --transition-step 255 --transition-pos center
 
 echo "$INDEX" > "$LAST_INDEX_FILE"
