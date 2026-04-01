@@ -11,17 +11,17 @@
 
   "modules-left": [ "cpu", "memory", "network#speed"],
   "modules-center": ["hyprland/workspaces"],
-  "modules-right": ["mpris", "pulseaudio", "custom/keyboard", "clock", "custom/notifications"],
+  "modules-right": ["mpris", "pulseaudio", "tray","custom/keyboard", "clock", "custom/notifications"],
 
   "hyprland/workspaces": {
     "format": "{name} {icon}",
     "on-click": "activate",
     "format-icons": {
       "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
+      "2": "",
+      "3": "",
+      "5": "",
+      "6": "",
       "urgent": "",
       "active": "",
       "default": ""
@@ -73,8 +73,7 @@
     },
     "dynamic-order": [
       "title",
-      "artist",
-      "album"
+      "artist"
     ],
     "on-click": "hyprctl dispatch exec [float] hyprmixer",
     "max-length": 1000,
