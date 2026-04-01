@@ -6,6 +6,7 @@
 # But allow tracked folders/files
 !hypr/
 !kitty/
+!quickshell/
 !swaync/
 !Thunar/
 !waybar/
