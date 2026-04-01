@@ -26,16 +26,14 @@ __git_color() {
   if git diff --quiet --ignore-submodules -- 2>/dev/null && \
      git diff --cached --quiet --ignore-submodules -- 2>/dev/null; then
     # clean -> yellow
-    printf '\[\033[0;33m\]'
+    printf '\033[0;33m'
   else
     # dirty -> cyan
-    printf '\[\033[0;36m\]'
+    printf '\033[0;36m'
   fi
 }
 
-# Format: <dir> <(branch)> $
-# Example: wow (main) $
-PS1='\[\033[1;32m\]\W\[\033[0m\]$(__git_color)$(__git_ps1 " (%s)")\[\033[1;32m\]\$ \[\033[0m\]'
+PS1='\[\033[1;32m\]\W\[\033[0m\]\[$(__git_color)\]$(__git_ps1 " (%s)")\[\033[1;32m\]\$ \[\033[0m\]'
 
 # --- Completion ---
 
