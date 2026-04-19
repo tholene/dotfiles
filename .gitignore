@@ -6,7 +6,6 @@
 # But allow tracked folders/files
 !hypr/
 !kitty/
-!quickshell/
 !skwd-wall/
 !swaync/
 !Thunar/
@@ -16,3 +15,5 @@
 
 # Ignore files produced/tweaked by scripts
 /hypr/conf.d/10-monitors-active.conf
+/hypr/wallpaper_effects
+/kitty/skwd-theme.conf
