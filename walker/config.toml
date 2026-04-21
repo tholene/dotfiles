@@ -1,0 +1,114 @@
+theme = "skwd"
+
+close_when_open = true
+click_to_close = true
+single_click_activation = true
+selection_wrap = false
+hide_quick_activation = true
+hide_action_hints = false
+hide_return_action = true
+
+[shell]
+exclusive_zone = -1
+layer = "overlay"
+anchor_top = true
+anchor_bottom = true
+anchor_left = true
+anchor_right = true
+
+[placeholders]
+"default" = { input = "Search...", list = "No results" }
+"websearch" = { input = "? Search or enter URL...", list = "Press Enter to search" }
+"calc" = { input = "= Enter expression...", list = "" }
+"files" = { input = "/ Find file...", list = "No files found" }
+"clipboard" = { input = ": Clipboard history...", list = "Clipboard is empty" }
+"runner" = { input = "> Run command...", list = "" }
+
+[keybinds]
+close = ["Escape"]
+next = ["Down"]
+previous = ["Up"]
+page_down = ["Page_Down"]
+page_up = ["Page_Up"]
+show_actions = ["alt j"]
+
+[providers]
+# Providers queried by default (when typing without a prefix)
+default = [
+  "desktopapplications",
+  "calc",
+  "websearch",
+]
+# Shown when the search box is empty
+empty = ["desktopapplications"]
+max_results = 50
+
+# ── Prefix bindings ─────────────────────────────────────────────────────────
+# ?  → web search / direct URL
+# =  → calculator (math + currency via qalc)
+# /  → file finder (scoped to common dirs)
+# :  → clipboard history
+# >  → shell command runner
+# ;  → switch between providers
+
+[[providers.prefixes]]
+prefix = "?"
+provider = "websearch"
+
+[[providers.prefixes]]
+prefix = "="
+provider = "calc"
+
+[[providers.prefixes]]
+prefix = "/"
+provider = "files"
+
+[[providers.prefixes]]
+prefix = ":"
+provider = "clipboard"
+
+[[providers.prefixes]]
+prefix = ">"
+provider = "runner"
+
+[[providers.prefixes]]
+prefix = ";"
+provider = "providerlist"
+
+# ── Clipboard ────────────────────────────────────────────────────────────────
+[providers.clipboard]
+time_format = "relative"
+
+# ── File finder ──────────────────────────────────────────────────────────────
+# Scope file search to common directories. Add new paths here as needed.
+[providers.files]
+dirs = [
+  "~/Documents",
+  "~/Downloads",
+  "~/Projects",
+  "~/Pictures",
+]
+max_depth = 6
+
+# ── Calculator ───────────────────────────────────────────────────────────────
+# Walker's built-in calc handles math. For currency conversion (e.g. "100 usd to sek")
+# use the runner prefix > with: qalc "100 usd to sek"
+[providers.calc]
+
+# ── Web search engines ───────────────────────────────────────────────────────
+# Prefix ? opens websearch. If the query looks like a URL (contains ://) it
+# opens directly; otherwise it searches via the configured engine below.
+[[providers.websearch.engines]]
+name = "Google"
+url = "https://www.google.com/search?q=%s"
+
+[[providers.websearch.engines]]
+name = "GitHub"
+prefix = "gh "
+url = "https://github.com/search?q=%s"
+
+[[providers.websearch.engines]]
+name = "Arch Wiki"
+prefix = "aw "
+url = "https://wiki.archlinux.org/index.php?search=%s"
+
