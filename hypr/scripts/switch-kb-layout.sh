@@ -11,12 +11,12 @@ notify_layout() {
   notify-send $NOTIFY_APP --app-icon="$1" --icon="$NOTIFY_ICON" "$NOTIFY_TITLE" "$2"
 }
 
-current=$(hyprctl devices -j | jq -r '[.keyboards[] | select(.main==true) | .layout] | first')
+current=$(hyprctl devices -j | jq -r '[.keyboards[] | select(.main==true) | .active_keymap] | first')
 
-if [[ "$current" == "us" ]]; then
-  hyprctl keyword input:kb_layout sv
-  notify_layout "$SE_FLAG" "Switched to Swedish (sv)"
+if [[ "$current" == "English (US)" ]]; then
+  hyprctl eval "hl.config({ input = { kb_layout = 'sv', numlock_by_default = true } })"
+  notify_layout "$SE_FLAG" "Switched to Swedish"
 else
-  hyprctl keyword input:kb_layout us
-  notify_layout "$US_FLAG" "Switched to English (us)"
+  hyprctl eval "hl.config({ input = { kb_layout = 'us,sv', numlock_by_default = true } })"
+  notify_layout "$US_FLAG" "Switched to English (US)"
 fi

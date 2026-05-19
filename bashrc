@@ -56,6 +56,42 @@ fi
 # Open file manager in given path
 open() { nautilus "$@" & disown; }
 
+treeto() {
+  # Använd första argumentet ($1) om det finns, annars default till 2
+  local depth=${1:-2}
+
+  # Vi lägger till .turbo, .next, .DS_Store och dist i listan
+  tree -a -I '.git|node_modules|.turbo|.next|.DS_Store|dist' -L "$depth" | pbcopy
+
+  echo "Trädöversikt (nivå $depth) kopierad! (Ignorerade: .git, node_modules, .turbo osv.)"
+}
+
+# Funktion för att generera AI-underlag från aktuell branch
+aidiff() {
+  # Hämta namnet på den aktuella branchen
+  local branch=$(git rev-parse --abbrev-ref HEAD)
+
+  # Om vi är på main, varna och avbryt (valfritt men säkert)
+  if [[ "$branch" == "main" ]]; then
+    echo "Du står på main. Gå till en feature-branch först."
+    return 1
+  fi
+
+  echo "Genererar filer för branch: $branch"
+
+  # Skapa sammanfattningen (använder '>' för första och '>>' för resten för att skriva över gammalt)
+  git diff --stat main...HEAD > "${branch}-summary.txt"
+  git diff --name-status main...HEAD >> "${branch}-summary.txt"
+  git log --oneline --decorate main..HEAD >> "${branch}-summary.txt"
+
+  # Skapa diff-filen
+  git diff main...HEAD > "${branch}.diff"
+
+  echo "Klart! Filer skapade:"
+  echo "- ${branch}-summary.txt"
+  echo "- ${branch}.diff"
+}
+
 # --- Aliases ---
 alias c='clear'
 alias y='yarn'
@@ -79,3 +115,5 @@ export EDITOR=webstorm
 if [[ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ]]; then
   export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 fi
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
