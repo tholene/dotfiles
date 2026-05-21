@@ -17,3 +17,4 @@
 /hypr/conf.d/10-monitors-active.conf
 /hypr/wallpaper_effects
 /kitty/skwd-theme.conf
+!/hypr/.display-mode
