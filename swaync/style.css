@@ -1,58 +1,58 @@
 /* ================================================================
    SwayNC – Notification Center CSS (Waybar-Style Frosted Glass)
    ================================================================ */
+@import 'matugen-colors.css';
 
 /*------------- Global font -------------*/
 * {
     font-family: "Hack", "JetBrainsMono Nerd Font";
     font-size: 14px;
-    color: #ffffff;
+    color: var(--nc-body);
 }
 
 /*------------- Main window – frosted glass -------------*/
 window, .notification-bg {
-    background: rgba(26,27,36,0.80); /* matches kitty #1a1b24 */
+    background: var(--nc-bg);
     border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.18);
+    border: 1px solid var(--nc-border);
     box-shadow: 0 4px 24px rgba(0,0,0,0.2);
 }
 
 /*------------- Notification containers -------------*/
 .notification {
-    background: rgba(26,27,36,0.80);
+    background: var(--nc-bg);
     border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.18);
-    color: #ffffff;
+    border: 1px solid var(--nc-border);
+    color: var(--nc-body);
     padding: 18px 24px;
     transition: background 120ms cubic-bezier(.4,0,.2,1),
     box-shadow 140ms cubic-bezier(.4,0,.2,1),
     border 120ms cubic-bezier(.4,0,.2,1);
 }
 
-/* Expand notifications a bit on hover/focus */
 .notification:hover, .notification.focused {
-    background: rgba(137,220,235,0.14);
-    box-shadow: 0 8px 32px rgba(137,220,235,0.13), 0 4px 24px rgba(0,0,0,0.24);
-    border: 1.5px solid rgba(137,220,235,0.32);
+    background: var(--nc-hover-bg);
+    box-shadow: 0 8px 32px var(--nc-hover-glow), 0 4px 24px rgba(0,0,0,0.24);
+    border: 1.5px solid var(--nc-hover-border);
 }
 
 /*------------- Titles -------------*/
 .notification-title,
 .notification-appname {
-    color: #f5e0dc; /* accent */
+    color: var(--nc-title);
     font-weight: 600;
 }
 
 /*------------- Body text -------------*/
 .notification-body {
-    color: #ffffff;
+    color: var(--nc-body);
 }
 
 /*------------- Action Buttons (pill look) -------------*/
 .notification-action-button {
-    background: rgba(255,255,255,0.11);  /* match Waybar pill-bg */
-    border: 1px solid rgba(255,255,255,0.22); /* match pill-border */
-    color: #fff;
+    background: var(--nc-btn-bg);
+    border: 1px solid var(--nc-btn-border);
+    color: var(--nc-body);
     border-radius: 999px;
     padding: 6px 18px;
     font-weight: 700;
@@ -64,11 +64,10 @@ window, .notification-bg {
 }
 .notification-action-button:last-child { margin-right: 0; }
 
-/* Hover: brighten pill, stronger shadow */
 .notification-action-button:hover {
-    background: rgba(255,255,255,0.20);
+    background: var(--nc-btn-hover-bg);
     box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    color: #222e2e;
+    color: var(--nc-btn-hover-text);
 }
 
 /*------------- Progress bars and icons -------------*/
@@ -79,28 +78,28 @@ window, .notification-bg {
 
 /*------------- Close button -------------*/
 .close-button {
-    color: #6dd7e7;
+    color: var(--nc-close);
     background: none;
     font-weight: bold;
     border: none;
     transition: color 120ms;
 }
 .close-button:hover {
-    color: #f38ba8;
+    color: var(--nc-close-hover);
 }
 
 /*------------- Urgent notifications -------------*/
 .notification.urgent {
-    background: rgba(204,102,102,0.3); /* soft red */
-    color: #ffffff;
+    background: rgba(204,102,102,0.3);
+    color: var(--nc-body);
     border: 1px solid rgba(204,102,102,0.45);
 }
 
-/*------------- Focused notification highlight (when navigated/focused) -------------*/
+/*------------- Focused notification highlight -------------*/
 .notification.focused {
-    background: rgba(17,17,27,0.35);
+    background: var(--nc-focused-bg);
     border-radius: 10px;
-    border: 1.5px solid rgba(255,255,255,0.10);
+    border: 1.5px solid var(--nc-focused-border);
 }
 
 /*------------- Transparent shadow for glass effect -------------*/

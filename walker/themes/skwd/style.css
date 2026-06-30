@@ -1,13 +1,4 @@
-/* ── Colour palette (matches existing wofi theme) ───────────────────────── */
-@define-color window_bg     rgba(20, 20, 28, 0.92);
-@define-color window_border rgba(255, 255, 255, 0.18);
-@define-color input_bg      rgba(255, 255, 255, 0.08);
-@define-color input_border  rgba(255, 255, 255, 0.14);
-@define-color fg            #ffffff;
-@define-color fg_dim        rgba(255, 255, 255, 0.60);
-@define-color accent        rgba(137, 220, 235, 0.28);
-@define-color accent_border rgba(137, 220, 235, 0.55);
-@define-color accent_solid  #89dceb;
+@import 'colors.css';
 
 * {
   all: unset;
@@ -17,8 +8,8 @@
 
 /* ── Outer window ────────────────────────────────────────────────────────── */
 .box-wrapper {
-  background-color: @window_bg;
-  border: 1px solid @window_border;
+  background-color: var(--walker-window-bg);
+  border: 1px solid var(--walker-window-border);
   border-radius: 18px;
   padding: 12px;
   min-width: 480px;
@@ -28,33 +19,33 @@
 .input {
   margin: 4px 0 8px 0;
   padding: 10px 12px;
-  border: 1px solid @input_border;
+  border: 1px solid var(--walker-input-border);
   border-radius: 14px;
-  background-color: @input_bg;
-  color: @fg;
-  caret-color: @accent_solid;
+  background-color: var(--walker-input-bg);
+  color: var(--walker-fg);
+  caret-color: var(--walker-accent-solid);
 }
 
 .input placeholder {
-  color: @fg_dim;
+  color: var(--walker-fg-dim);
 }
 
 /* ── Result list ─────────────────────────────────────────────────────────── */
 .list {
-  color: @fg;
+  color: var(--walker-fg);
 }
 
 .item-box {
   padding: 10px 12px;
   border-radius: 12px;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--walker-fg);
 }
 
 child:selected .item-box,
 row:selected .item-box {
-  background-color: @accent;
-  border: 1px solid @accent_border;
-  color: @fg;
+  background-color: var(--walker-accent);
+  border: 1px solid var(--walker-accent-border);
+  color: var(--walker-fg);
 }
 
 .item-text-box {
@@ -63,24 +54,24 @@ row:selected .item-box {
 
 .item-subtext {
   font-size: 12px;
-  color: @fg_dim;
+  color: var(--walker-fg-dim);
 }
 
 /* ── Calculator result (shown large) ────────────────────────────────────── */
 .calc .item-text {
   font-size: 22px;
-  color: @accent_solid;
+  color: var(--walker-accent-solid);
 }
 
 .calc .item-subtext {
   font-size: 12px;
-  color: @fg_dim;
+  color: var(--walker-fg-dim);
 }
 
 /* ── Provider hint / placeholder text ───────────────────────────────────── */
 .elephant-hint,
 .placeholder {
-  color: @fg_dim;
+  color: var(--walker-fg-dim);
   padding: 8px 12px;
   font-size: 12px;
 }
@@ -93,15 +84,15 @@ scrollbar {
 /* ── Keybind hints ───────────────────────────────────────────────────────── */
 .keybinds {
   padding-top: 8px;
-  border-top: 1px solid @input_border;
+  border-top: 1px solid var(--walker-input-border);
   font-size: 11px;
-  color: @fg_dim;
+  color: var(--walker-fg-dim);
 }
 
 .keybind-label {
   padding: 2px 5px;
   border-radius: 4px;
-  border: 1px solid @fg_dim;
+  border: 1px solid var(--walker-fg-dim);
 }
 
 .keybind-bind {
@@ -113,7 +104,7 @@ scrollbar {
 .error {
   padding: 10px;
   background: rgba(195, 64, 67, 0.85);
-  color: #dcd7ba;
+  color: var(--walker-fg);
   border-radius: 8px;
 }
 

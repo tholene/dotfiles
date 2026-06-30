@@ -115,5 +115,7 @@ export EDITOR=webstorm
 if [[ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ]]; then
   export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 fi
+
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH=$PATH:~/.spicetify

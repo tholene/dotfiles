@@ -9,8 +9,8 @@ hl.config({
         resize_on_border = true,
 
         col = {
-            active_border   = "rgba(1f6f7acc)",
-            inactive_border = "rgba(ffffff12)",
+            active_border   = "rgba(a2cbefee)",
+            inactive_border = "rgba(1e202299)",
         },
     },
 

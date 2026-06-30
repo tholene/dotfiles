@@ -50,12 +50,31 @@ hl.window_rule({
 
 hl.window_rule({
     name      = "battlenet",
-    match     = { class = "steam_app_0", initial_title = "^Battle\\.net$" },
+    match     = { class = "^steam_app_.*$", initial_title = "^Battle\\.net$" },
     workspace = "4 silent",
 })
 
 hl.window_rule({
     name      = "wow",
-    match     = { class = "steam_app_0", initial_title = "^World of Warcraft$" },
+    match     = { class = "^steam_app_.*$", initial_title = "^World of Warcraft$" },
     workspace = "3 silent",
+})
+
+hl.window_rule({
+    name    = "wow-opacity",
+    match   = { class = "^steam_app_.*$", title = "^World of Warcraft$" },
+    opacity = "1.0 override 1.0 override 1.0 override",
+    opaque  = true,
+})
+
+hl.window_rule({
+    name    = "chrome-opacity",
+    match   = { class = "^google-chrome$" },
+    opacity = "1.0 override 1.0 override",
+})
+
+hl.window_rule({
+    name    = "zen-opacity",
+    match   = { class = "^zen$" },
+    opacity = "1.0 override 1.0 override",
 })
