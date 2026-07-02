@@ -80,7 +80,8 @@ hl.window_rule({
 })
 
 hl.layer_rule({
-    name    = "skwd-paper-noanim",
-    match   = { namespace = "^skwd-paper" },
-    no_anim = true,
+    name      = "skwd-paper-noanim",
+    match     = { namespace = "^skwd-paper" },
+    no_anim   = true,
+    animation = "noanim",
 })
