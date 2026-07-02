@@ -56,7 +56,7 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl --player playerctld next"),
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl --player playerctld previous"),    { locked = true })
 
 -- Wallpaper
-hl.bind(mod .. " + W", hl.dsp.exec_cmd("quickshell ipc -p " .. home .. "/.config/skwd-wall/daemon.qml call wallpaper toggle"))
+hl.bind(mod .. " + W", hl.dsp.exec_cmd("quickshell -p " .. home .. "/.config/skwd-wall/shell.qml"))
 
 -- Keyboard layout
 hl.bind("ALT + " .. mod .. " + TAB", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/switch-kb-layout.sh"))

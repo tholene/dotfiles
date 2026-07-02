@@ -8,7 +8,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
     hl.exec_cmd("nm-applet --indicator")
 
-    hl.exec_cmd("quickshell -p ~/.config/skwd-wall/daemon.qml")
+    hl.exec_cmd("quickshell -p ~/.config/skwd-wall/shell.qml")
     hl.exec_cmd("systemctl --user start elephant")
     hl.exec_cmd("walker --gapplication-service")
     hl.exec_cmd("qalc -e 'exrates'")
