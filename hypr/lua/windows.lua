@@ -78,3 +78,9 @@ hl.window_rule({
     match   = { class = "^zen$" },
     opacity = "1.0 override 1.0 override",
 })
+
+hl.layer_rule({
+    name    = "skwd-paper-noanim",
+    match   = { namespace = "^skwd-paper" },
+    no_anim = true,
+})
