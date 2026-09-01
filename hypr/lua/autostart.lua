@@ -18,7 +18,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swaync")
     hl.exec_cmd("sleep 3 && easyeffects --hide-window")
 
-    hl.exec_cmd("[workspace 2 silent] webstorm")
+--     hl.exec_cmd("[workspace 2 silent] webstorm")
     hl.exec_cmd("[workspace 4 silent] steam")
     hl.exec_cmd("[workspace 4 silent] gtk-launch battlenet")
     hl.exec_cmd("[workspace 5 silent] discord")
