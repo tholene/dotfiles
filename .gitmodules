@@ -1,0 +1,4 @@
+[submodule "skwd-wall"]
+	path = skwd-wall
+	url = https://github.com/tholene/skwd-wall.git
+	branch = main

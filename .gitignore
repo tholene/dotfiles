@@ -2,6 +2,7 @@
 /*
 
 !.gitignore
+!.gitmodules
 
 # But allow tracked folders/files
 !hypr/
