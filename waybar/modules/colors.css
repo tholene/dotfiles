@@ -1,5 +1,0 @@
-@define-color primary       #b3c5ff;
-
-@define-color pill-bg       alpha(#1e1f26, 0.55);
-@define-color pill-bg-hover alpha(#0f41a0, 0.30);
-@define-color pill-border   alpha(#b3c5ff, 0.28);
