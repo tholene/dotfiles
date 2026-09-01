@@ -19,6 +19,12 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name      = "spotify",
+    match     = { class = "^(Spotify|spotify)$" },
+    workspace = "6 silent",
+})
+
+hl.window_rule({
     name   = "file-dialog",
     match  = { title = "^((Save|Open) File(s|)|Select a folder this site can view)$" },
     float  = true,
@@ -55,14 +61,21 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name      = "wow",
-    match     = { class = "^steam_app_.*$", initial_title = "^World of Warcraft$" },
+    name      = "game",
+    match     = { class = "^steam_app_.*$", initial_title = "^(World of Warcraft|Hearthstone)$" },
     workspace = "3 silent",
 })
 
 hl.window_rule({
-    name    = "wow-opacity",
-    match   = { class = "^steam_app_.*$", title = "^World of Warcraft$" },
+    name    = "game-opacity",
+    match   = { class = "^steam_app_.*$", title = "^(World of Warcraft|Hearthstone)$" },
+    opacity = "1.0 override 1.0 override 1.0 override",
+    opaque  = true,
+})
+
+hl.window_rule({
+    name    = "discord-stream-opacity",
+    match   = { class = "^discord$", initial_title = "^(Discord Popout)$" },
     opacity = "1.0 override 1.0 override 1.0 override",
     opaque  = true,
 })
