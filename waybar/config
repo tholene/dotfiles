@@ -9,7 +9,7 @@
 
   "reload_style_on_change": true,
 
-  "modules-left": [ "cpu", "memory", "custom/codexbar", "network#speed"],
+  "modules-left": [ "cpu", "memory", "network#speed"],
   "modules-center": ["hyprland/workspaces"],
   "modules-right": ["mpris", "pulseaudio", "tray","custom/keyboard", "clock", "custom/notifications"],
 
@@ -106,17 +106,5 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
-  },
-
-  "custom/codexbar": {
-    "exec": "$HOME/.config/waybar/scripts/codexbar.sh",
-    "return-type": "json",
-    "format": "{}",
-    "interval": 30,
-    "signal": 8,
-    "on-click": "$HOME/.config/waybar/scripts/codexbar-popup.py",
-    "on-click-right": "bash -c 'notify-send -a CodexBar -t 8000 \"AI usage\" \"$($HOME/.config/waybar/scripts/codexbar.sh | jq -r .tooltip)\"'",
-    "tooltip": true,
-    "max-length": 24
   }
 }
