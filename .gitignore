@@ -9,6 +9,11 @@
 !kitty/
 !skwd-wall/
 !swaync/
+!systemd/
+systemd/*
+!systemd/user/
+systemd/user/*
+!systemd/user/skwd-daemon.service.d/
 !Thunar/
 !waybar/
 !walker/
